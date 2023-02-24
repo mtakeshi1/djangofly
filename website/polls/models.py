@@ -1,13 +1,7 @@
 from django.db import models
 
+
 # Create your models here.
-
-
-class MenuEntry(models.Model):
-    entry_date = models.DateField('date of the entry')
-    entry_time = models.CharField(max_length=255)
-    entry = models.CharField(max_length=1500)
-
 
 class TimeSlot(models.Model):
     description = models.CharField(max_length=255)
@@ -31,3 +25,9 @@ class DailyActivity(models.Model):
 
     def __str__(self):
         return '{} at {}: {}'.format(str(self.day_of_week), str(self.time_slot), self.description)
+
+
+class MenuEntry(models.Model):
+    entry_date = models.DateField('date of the entry')
+    entry_time = models.ForeignKey(TimeSlot, on_delete=models.CASCADE)
+    entry = models.CharField(max_length=1500)
